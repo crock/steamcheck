@@ -20,6 +20,14 @@ python3 -m pip install steamcheck
 
 https://pypi.org/project/steamcheck
 
+If not using pip, you can run the following command.
+
+```
+cd PATH && python3 setup.py install
+```
+
+_Note:_ Replace PATH with the full, absolute path of the extracted zip you downloaded.
+
 ## Usage
 
 Unlike this program's predecessor, **OGCheckr Steam Edition** does not have a configuration file. You supply command-line arguments instead.

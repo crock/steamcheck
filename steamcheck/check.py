@@ -40,9 +40,18 @@ class Checker(object):
             self.check_proxy_list()
 
         if int(args.thread_count) > 1:
-            self.thread_count = int(args.thread_count)
+            if int(args.thread_count) > 50:
+                print("Max number of threads is limited to 50. Setting it for you.\nResuming in 2 seconds...")
+                self.thread_count = 50
+            else:
+                self.thread_count = int(args.thread_count)
 
-        self.check()
+        try:
+            self.check()
+        except KeyboardInterrupt:
+            print("\nExecution terminated by user.")
+            exit(1)
+
 
     def get_words(self):
         if os.path.exists(self.word_list):
@@ -117,23 +126,29 @@ class Checker(object):
             random_proxy = random.choice(self.good_proxies)
             proxy = f'{random_proxy.protocol}://{random_proxy.ip}:{random_proxy.port}'
 
-        response = s.get(urls[0], timeout=4, proxies=proxy)
-        error = 'The specified profile could not be found'
+        try:
+            response = s.get(urls[0], timeout=4, proxies=proxy)
+            error = 'The specified profile could not be found'
 
-        with self.print_lock:
-            if error in response.text:
-                self.log_result(word, "id", "available")
-            else:
-                self.log_result(word, "id", "taken")
+            with self.print_lock:
+                if error in response.text:
+                    self.log_result(word, "id", "available")
+                else:
+                    self.log_result(word, "id", "taken")
+        except Exception:
+            print("Request failed.")
 
-        response = s.get(urls[1], timeout=4, proxies=proxy)
-        error = 'No group could be retrieved for the given URL'
+        try:
+            response = s.get(urls[1], timeout=4, proxies=proxy)
+            error = 'No group could be retrieved for the given URL'
 
-        with self.print_lock:
-            if error in response.text:
-                self.log_result(word, "group", "available")
-            else:
-                self.log_result(word, "group", "taken")
+            with self.print_lock:
+                if error in response.text:
+                    self.log_result(word, "group", "available")
+                else:
+                    self.log_result(word, "group", "taken")
+        except Exception:
+            print("Request failed.")
 
     def threader(self):
         while True:

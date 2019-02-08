@@ -4,7 +4,7 @@ from argparse import ArgumentParser, RawDescriptionHelpFormatter
 from steamcheck.check import Checker
 
 module_name = "OGCheckr: Steam Edition"
-__version__ = "1.0.0"
+__version__ = "1.0.1"
 
 def main():
     version_string = f"{module_name}\n" + \
