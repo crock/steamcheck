@@ -24,4 +24,7 @@ setuptools.setup(
         "License :: OSI Approved :: GPL-3.0",
         "Operating System :: OS Independent",
     ],
+    entry_points = {
+        'console_scripts': ['steamcheck=steamcheck.main:main'],
+    }
 )

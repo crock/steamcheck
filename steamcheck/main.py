@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import platform
 from argparse import ArgumentParser, RawDescriptionHelpFormatter
-from check import Checker
+from steamcheck.check import Checker
 
 module_name = "OGCheckr: Steam Edition"
 __version__ = "1.0.0"
