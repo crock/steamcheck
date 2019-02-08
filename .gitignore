@@ -1,0 +1,15 @@
+# Uselss macOS File
+.DS_Store
+
+# Editor Configurations
+.idea
+.vscode
+
+# Excluding all text files except for dependencies list
+*.txt
+
+# Virtual Environments
+venv/
+
+# Cache directory
+__pycache__
